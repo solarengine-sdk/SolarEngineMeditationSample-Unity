@@ -1,0 +1,13 @@
+# Unity
+Library/
+Temp/
+Logs/
+Obj/
+UserSettings/
+MemoryCaptures/
+.DS_Store
+.vs/
+.idea/
+
+# Ignore Unity .meta files under Wrappers only
+Assets/Scripts/Wrappers/**/*.meta

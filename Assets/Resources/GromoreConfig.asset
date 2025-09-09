@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0000000000000000e0, type: 3}
+  m_Name: GromoreConfig
+  m_EditorClassIdentifier: 
+  appId: your_gromore_app_id_here
+  appName: Your App Name
+  useMediation: 1
+  allowShowNotify: 1
+  debug: 1
+  themeStatus: 0
+  supportMultiProcess: 0
+  ageGroup: 0
+  paid: 0
+  keyWords: 
+  titleBarTheme: 0
+  rewardedAdUnitId: your_rewarded_ad_unit_id
+  interstitialAdUnitId: your_interstitial_ad_unit_id
+  bannerAdUnitId: your_banner_ad_unit_id
+  nativeAdUnitId: your_native_ad_unit_id
+  splashAdUnitId: your_splash_ad_unit_id
+  fullScreenVideoAdUnitId: your_fullscreen_video_ad_unit_id
+  canUseLocation: 0
+  canUsePhoneState: 0
+  canUseWifiState: 0
+  canUseWriteExternalStorage: 0
+  canUseReadPhoneState: 0
+  canUseReadExternalStorage: 0
+  canUseWriteExternalStorageUntilAppInstallFinish: 0
+  canUseReadExternalStorageUntilAppInstallFinish: 0
+  canUseInstallShortcutReceiver: 0
+  canUseAccessWifiState: 0
+  canUseAccessNetworkState: 0
+  canUseAccessFineLocation: 0
+  canUseAccessCoarseLocation: 0
+  canUseVibrate: 0
+  canUseCamera: 0
+  canUseRecordAudio: 0
+  canUseModifyAudioSettings: 0
+  canUseReadLogs: 0
+  canUseWriteLogs: 0
+  canUseWakeLock: 0
+  canUseGetTasks: 0
+  canUseGetAccounts: 0
+  canUseGetPackageSize: 0
+  canUseGetInstalledPackages: 0
+  canUseGetRunningTasks: 0
+  canUseGetRunningAppProcesses: 0
+  canUseGetDeviceId: 0
+  canUseGetSubscriberId: 0
+  canUseGetSimSerialNumber: 0
+  canUseGetLine1Number: 0
+  canUseGetNeighboringCellInfo: 0
+  canUseGetAllCellInfo: 0
+  canUseGetCellLocation: 0
+  canUseGetLastKnownLocation: 0
+  canUseGetLocation: 0
+  canUseGetImei: 0
+  canUseGetMacAddress: 0
+  canUseGetAndroidId: 0
+  canUseGetSerial: 0
+  canUseGetBuildSerial: 0
+  canUseGetBuildFingerprint: 0
+  canUseGetBuildHardware: 0
+  canUseGetBuildProduct: 0
+  canUseGetBuildBrand: 0
+  canUseGetBuildDevice: 0
+  canUseGetBuildModel: 0
+  canUseGetBuildManufacturer: 0
+  canUseGetBuildHost: 0
+  canUseGetBuildUser: 0
+  canUseGetBuildDisplay: 0
+  canUseGetBuildId: 0
+  canUseGetBuildTags: 0
+  canUseGetBuildType: 0
+  canUseGetBuildTime: 0
