@@ -31,7 +31,7 @@
 ### How to use in your app
 
 1) Integrate the mediation SDK you choose (packages/plugins per vendor) following that SDK’s Unity guide.
-2) Use this sample as a reference for wiring each SDK’s C# events/listeners.
+2) Use this sample as a reference for wiring each SDK’s C# events/listeners.(You can download the wrapper file from [here](https://github.com/solarengine-sdk/SolarEngineMeditationSample-Unity/blob/main/Wrappers.zip), delete the mediation wrapper file you don`t need).
 3) When revenue/impression callbacks fire, call the corresponding wrapper:
    - AdMob: OnPaid ➜ `AdMobAdWrapper.Build*AdPaidEventHandler`
      
