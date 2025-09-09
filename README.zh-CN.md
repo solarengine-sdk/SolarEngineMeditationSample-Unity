@@ -30,7 +30,7 @@
 ### 如何使用
 
 1) 按官方指南导入所选聚合 SDK（Unity 插件/Package）。
-2) 参考本示例绑定各 SDK 的 C# 事件/监听。
+2) 参考本示例绑定各 SDK 的 C# 事件/监听。(您可以从[这里](https://github.com/solarengine-sdk/SolarEngineMeditationSample-Unity/blob/main/Wrappers.zip)下载各聚合平台的wrapper,从中移除您不需要的文件,仅保留您要使用的聚合对应的wrapper文件即可)。
 3) 当触发收益/曝光回调时，调用对应 Wrapper：
    - AdMob：OnPaid ➜ `AdMobAdWrapper.Build*AdPaidEventHandler`
 
