@@ -14,11 +14,11 @@
 
 ### Key points by network
 
-- AdMob: subscribe to OnPaid events and forward via `AdMobAdWrapper` to `AdmobSolarEngineTracker` with `AdMobAdType`.
-- MAX: use per‑ad‑type revenue callbacks; wrappers (e.g., `MaxRewardedAdWrapper`) call `MaxSolarEngineTracker` with `MaxAdType`.
-- Gromore: use mediation eCPM info; `GromoreAdWrapper` calls `GromoreSolarEngineTracker` with `GromoreAdType`.
-- IronSource: use `LevelPlayImpressionData`; `IronSourceWrapper` calls `IronSourceSolarEngineTracker`.
-- Taku/TopOn: use callback info objects; `TakuAdWrapper` / `TopOnAdWrapper` call their trackers with enums.
+- AdMob: handle OnPaid event → use `AdMobAdWrapper.Build*AdPaidEventHandler`.
+- MAX: handle per‑ad‑type OnAdRevenuePaid → call the matching `Max*AdWrapper`.
+- Gromore: on ad show → call `GromoreAdWrapper.track*AdImpression` (wrapper reads eCPM internally).
+- IronSource: use `LevelPlayImpressionData` → call `IronSourceWrapper`.
+- Taku/TopOn: in show callbacks → call `TakuAdWrapper.Track*AdRevenue` / `TopOnAdWrapper.Track*AdRevenue`.
 
 ### Project layout (high‑level)
 
@@ -32,12 +32,68 @@
 
 1) Integrate the mediation SDK you choose (packages/plugins per vendor) following that SDK’s Unity guide.
 2) Use this sample as a reference for wiring each SDK’s C# events/listeners.
-3) When revenue/impression callbacks fire, call the corresponding wrapper to forward data to SolarEngine:
-   - AdMob: OnPaid ➜ `AdMobAdWrapper.*` which calls `AdmobSolarEngineTracker`
-   - MAX: Ad revenue per ad type ➜ `Max*AdWrapper` which calls `MaxSolarEngineTracker`
-   - Gromore: mediation eCPM ➜ `GromoreAdWrapper` which calls `GromoreSolarEngineTracker`
-   - IronSource: LevelPlay impression data ➜ `IronSourceWrapper` which calls `IronSourceSolarEngineTracker`
-   - Taku/TopOn: callback info ➜ `TakuAdWrapper` / `TopOnAdWrapper` which call their trackers
+3) When revenue/impression callbacks fire, call the corresponding wrapper:
+   - AdMob: OnPaid ➜ `AdMobAdWrapper.Build*AdPaidEventHandler`
+     
+     Example (Rewarded):
+     ```csharp   
+     // After loading rewardedAd
+     rewardedAd.OnAdPaid += AdMobAdWrapper.BuildRewardedAdPaidEventHandler(
+         userCallback: null,
+         responseInfo: rewardedAd.GetResponseInfo());
+     ```
+   - MAX: ad revenue per ad type ➜ `Max*AdWrapper`
+     
+     Example (Rewarded):
+     ```csharp
+      MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += MaxRewardedAdWrapper.BuildAdRevenueHandler(OnAdRevenuePaid);    
+     ```
+   - Gromore: on ad show ➜ `GromoreAdWrapper.track*AdImpression`
+
+      Example (Rewarded):
+      ```csharp
+        #region IRewardAdInteractionListener Implementation
+
+        void IRewardAdInteractionListener.OnAdShow()
+        {
+            Debug.Log("GromoreManager: Rewarded ad shown");
+            
+            string placementId = "";
+            if (config != null)
+            {
+                placementId = config.RewardedAdUnitId;
+            }
+            // Use wrapper to track ad revenue and impression
+            MediationAdEcpmInfo ecpmInfo = null;
+            if (rewardedAd != null)
+            {
+                ecpmInfo = rewardedAd.GetMediationManager().GetShowEcpm();
+            }
+            GromoreAdWrapper.TrackRewardedAdRevenue(placementId, ecpmInfo);
+            
+            OnRewardedAdDisplayed?.Invoke();
+        }
+        ```
+   - IronSource: LevelPlay impression data ➜ `IronSourceWrapper`
+      Example:
+      ```csharp
+          LevelPlay.OnImpressionDataReady += IronSourceWrapper.BuildImpressionDataHandler();
+      ```
+   - Taku/TopOn: callback info ➜ `TakuAdWrapper` / `TopOnAdWrapper`
+      Example (Rewarded):
+
+      ```csharp
+        #region ATRewardedVideoListener Implementation
+
+        public void onRewardedVideoAdPlayStart(string placementId, ATCallbackInfo callbackInfo)
+        {
+            Debug.Log($"TakuManager: Rewarded video ad play started for placement: {placementId}");
+            OnRewardedAdDisplayed?.Invoke();
+            
+            // Track revenue using wrapper
+            TakuAdWrapper.TrackRewardedAdRevenue(callbackInfo);
+        }
+      ```
 4) Keep your game code focused on load/show logic; let wrappers normalize and report to SolarEngine.
 
 ### Out of scope
