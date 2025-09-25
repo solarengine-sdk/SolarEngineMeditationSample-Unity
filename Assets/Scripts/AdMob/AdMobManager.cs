@@ -148,7 +148,7 @@ namespace SolarEngineMeditationSample.AdMob
                 (AdValue adValue) => {
                     if (enableDebugLogging)
                         Debug.Log($"Banner ad paid event: {adValue.Value} {adValue.CurrencyCode}");
-                },
+                },config.GetBannerAdUnitId(),
                 bannerView.GetResponseInfo()
             );
             
@@ -240,7 +240,7 @@ namespace SolarEngineMeditationSample.AdMob
                     (AdValue adValue) => {
                         if (enableDebugLogging)
                             Debug.Log($"Interstitial ad paid event: {adValue.Value} {adValue.CurrencyCode}");
-                    },
+                    },config.GetInterstitialAdUnitId(),
                     interstitialAd.GetResponseInfo()
                 );
                 
@@ -321,7 +321,7 @@ namespace SolarEngineMeditationSample.AdMob
                     (AdValue adValue) => {
                         if (enableDebugLogging)
                             Debug.Log($"Rewarded ad paid event: {adValue.Value} {adValue.CurrencyCode}");
-                    },
+                    },config.GetRewardedAdUnitId(),
                     rewardedAd.GetResponseInfo()
                 );
                 
@@ -407,7 +407,7 @@ namespace SolarEngineMeditationSample.AdMob
                     (AdValue adValue) => {
                         if (enableDebugLogging)
                             Debug.Log($"App open ad paid event: {adValue.Value} {adValue.CurrencyCode}");
-                    },
+                    },config.GetSplashAdUnitId(),
                     appOpenAd.GetResponseInfo()
                 );
                 

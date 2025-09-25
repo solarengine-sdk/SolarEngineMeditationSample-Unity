@@ -15,7 +15,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// Forward an ad impression to SolarEngine Analytics
         /// </summary>
         /// <param name="adType">AdMob ad type</param>
-        public static void trackAdImpression(AdMobAdType adType, AdValue adValue, ResponseInfo responseInfo)
+        public static void trackAdImpression(AdMobAdType adType,string adUnitId, AdValue adValue, ResponseInfo responseInfo)
         {
             Debug.Log("AdMobSolarEngineTracker.trackAdImpression() called");
 
@@ -24,14 +24,13 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
 
         
             AdapterResponseInfo loadedAdapterResponseInfo = responseInfo.GetLoadedAdapterResponseInfo();
-            string adSourceInstanceId = loadedAdapterResponseInfo.AdSourceInstanceId;
             string adSourceName = loadedAdapterResponseInfo.AdSourceName;
    
 
             ImpressionAttributes impressionAttributes = new ImpressionAttributes();
             impressionAttributes.ad_platform = adSourceName;
             impressionAttributes.ad_appid = "";
-            impressionAttributes.ad_id = adSourceInstanceId;
+            impressionAttributes.ad_id = adUnitId;
             impressionAttributes.ad_type = (int)adType;
             impressionAttributes.ad_ecpm = valueMicros / 1000.0;
             impressionAttributes.currency_type = currencyCode;

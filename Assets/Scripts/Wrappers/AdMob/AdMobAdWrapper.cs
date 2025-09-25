@@ -17,7 +17,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="userCallback">The user's paid event callback that will receive the forwarded callbacks</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
         /// <returns>A wrapped paid event handler that intercepts and logs callbacks before forwarding them</returns>
-        public static Action<AdValue> BuildRewardedAdPaidEventHandler(Action<AdValue> userCallback, ResponseInfo responseInfo = null)
+        public static Action<AdValue> BuildRewardedAdPaidEventHandler(Action<AdValue> userCallback,string adUnitId,ResponseInfo responseInfo = null)
         {
             Debug.Log("AdMobAdWrapper.BuildRewardedAdPaidEventHandler() called");
 
@@ -25,7 +25,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
                 Debug.Log($"AdMob Rewarded Ad onPaidEvent callback received - {adValue.Value} {adValue.CurrencyCode}");
                 
                 // Track ad impression for SolarEngine
-                TrackAdImpression(AdMobAdType.RewardVideo, adValue, responseInfo);
+                TrackAdImpression(AdMobAdType.RewardVideo,adUnitId, adValue, responseInfo);
 
                 if (userCallback != null)
                 {
@@ -40,7 +40,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="userCallback">The user's paid event callback that will receive the forwarded callbacks</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
         /// <returns>A wrapped paid event handler that intercepts and logs callbacks before forwarding them</returns>
-        public static Action<AdValue> BuildInterstitialAdPaidEventHandler(Action<AdValue> userCallback, ResponseInfo responseInfo = null)
+        public static Action<AdValue> BuildInterstitialAdPaidEventHandler(Action<AdValue> userCallback,string adUnitId,ResponseInfo responseInfo = null)
         {
             Debug.Log("AdMobAdWrapper.BuildInterstitialAdPaidEventHandler() called");
 
@@ -48,7 +48,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
                 Debug.Log($"AdMob Interstitial Ad onPaidEvent callback received - {adValue.Value} {adValue.CurrencyCode}");
                 
                 // Track ad impression for SolarEngine
-                TrackAdImpression(AdMobAdType.Interstitial, adValue, responseInfo);
+                TrackAdImpression(AdMobAdType.Interstitial,adUnitId, adValue, responseInfo);
 
                 if (userCallback != null)
                 {
@@ -63,7 +63,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="userCallback">The user's paid event callback that will receive the forwarded callbacks</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
         /// <returns>A wrapped paid event handler that intercepts and logs callbacks before forwarding them</returns>
-        public static Action<AdValue> BuildBannerAdPaidEventHandler(Action<AdValue> userCallback, ResponseInfo responseInfo = null)
+        public static Action<AdValue> BuildBannerAdPaidEventHandler(Action<AdValue> userCallback,string adUnitId,ResponseInfo responseInfo = null)
         {
             Debug.Log("AdMobAdWrapper.BuildBannerAdPaidEventHandler() called");
 
@@ -71,7 +71,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
                 Debug.Log($"AdMob Banner Ad onPaidEvent callback received - {adValue.Value} {adValue.CurrencyCode}");
                 
                 // Track ad impression for SolarEngine
-                TrackAdImpression(AdMobAdType.Banner, adValue, responseInfo);
+                TrackAdImpression(AdMobAdType.Banner,adUnitId, adValue, responseInfo);
 
                 if (userCallback != null)
                 {
@@ -86,7 +86,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="userCallback">The user's paid event callback that will receive the forwarded callbacks</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
         /// <returns>A wrapped paid event handler that intercepts and logs callbacks before forwarding them</returns>
-        public static Action<AdValue> BuildNativeAdPaidEventHandler(Action<AdValue> userCallback, ResponseInfo responseInfo = null)
+        public static Action<AdValue> BuildNativeAdPaidEventHandler(Action<AdValue> userCallback,string adUnitId,ResponseInfo responseInfo = null)
         {
             Debug.Log("AdMobAdWrapper.BuildNativeAdPaidEventHandler() called");
 
@@ -94,7 +94,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
                 Debug.Log($"AdMob Native Ad onPaidEvent callback received - {adValue.Value} {adValue.CurrencyCode}");
                 
                 // Track ad impression for SolarEngine
-                TrackAdImpression(AdMobAdType.Native, adValue, responseInfo);
+                TrackAdImpression(AdMobAdType.Native,adUnitId, adValue, responseInfo);
 
                 if (userCallback != null)
                 {
@@ -109,7 +109,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="userCallback">The user's paid event callback that will receive the forwarded callbacks</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
         /// <returns>A wrapped paid event handler that intercepts and logs callbacks before forwarding them</returns>
-        public static Action<AdValue> BuildAppOpenAdPaidEventHandler(Action<AdValue> userCallback, ResponseInfo responseInfo = null)
+        public static Action<AdValue> BuildAppOpenAdPaidEventHandler(Action<AdValue> userCallback,string adUnitId,ResponseInfo responseInfo = null)
         {
             Debug.Log("AdMobAdWrapper.BuildAppOpenAdPaidEventHandler() called");
 
@@ -117,7 +117,7 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
                 Debug.Log($"AdMob App Open Ad onPaidEvent callback received - {adValue.Value} {adValue.CurrencyCode}");
                 
                 // Track ad impression for SolarEngine (map AppOpen to Splash)
-                TrackAdImpression(AdMobAdType.Splash, adValue, responseInfo);
+                TrackAdImpression(AdMobAdType.Splash,adUnitId, adValue, responseInfo);
 
                 if (userCallback != null)
                 {
@@ -132,9 +132,9 @@ namespace SolarEngineMeditationSample.Wrappers.AdMob
         /// <param name="adType">Type of ad (rewarded, interstitial, banner, native, app_open)</param>
         /// <param name="adValue">Ad value containing revenue information</param>
         /// <param name="responseInfo">Response info from the ad loading process</param>
-        private static void TrackAdImpression(AdMobAdType adType, AdValue adValue, ResponseInfo responseInfo)
+        private static void TrackAdImpression(AdMobAdType adType,string adUnitId,AdValue adValue, ResponseInfo responseInfo)
         {
-            AdMobSolarEngineTracker.trackAdImpression(adType, adValue, responseInfo);
+            AdMobSolarEngineTracker.trackAdImpression(adType,adUnitId, adValue, responseInfo);
         }
     }
 }
